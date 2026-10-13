@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids Learning App</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #a8edf0 0%, #fed6e3 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4757;
+      text-shadow: 2px 2px #ffffff;
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+      text-align: center;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      background-color: #ffffff;
+      color: #2ed573;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background-color: #ff4757;
+      color: #ffffff;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .card:active {
+      transform: scale(0.95);
+    }
+    .letter {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #3742fa;
+    }
+    .word {
+      font-size: 1rem;
+      color: #2f3542;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎈 Kids Fun Learning App 🎈</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showCategory('abc')">ABC 🔤</button>
+    <button class="tab-btn" onclick="showCategory('123')">123 🔢</button>
+  </div>
+
+  <div id="grid" class="grid-container"></div>
+
+  <script>
+    const abcData = [
+      { main: 'A', word: 'Apple 🍎' }, { main: 'B', word: 'Ball ⚽' },
+      { main: 'C', word: 'Cat 🐱' }, { main: 'D', word: 'Dog 🐶' },
+      { main: 'E', word: 'Elephant 🐘' }, { main: 'F', word: 'Fish 🐟' },
+      { main: 'G', word: 'Grapes 🍇' }, { main: 'H', word: 'House 🏠' },
+      { main: 'I', word: 'Ice Cream 🍦' }, { main: 'J', word: 'Juice 🧃' },
+      { main: 'K', word: 'Kite 🪁' }, { main: 'L', word: 'Lion 🦁' },
+      { main: 'M', word: 'Monkey 🐒' }, { main: 'N', word: 'Nest 🪹' },
+      { main: 'O', word: 'Orange 🍊' }, { main: 'P', word: 'Parrot 🦜' },
+      { main: 'Q', word: 'Queen 👸' }, { main: 'R', word: 'Rabbit 🐇' },
+      { main: 'S', word: 'Sun ☀️' }, { main: 'T', word: 'Tree 🌳' },
+      { main: 'U', word: 'Umbrella ☂️' }, { main: 'V', word: 'Van 🚐' },
+      { main: 'W', word: 'Watch ⌚' }, { main: 'X', word: 'Xylophone 🎼' },
+      { main: 'Y', word: 'Yak 🐂' }, { main: 'Z', word: 'Zebra 🦓' }
+    ];
+
+    const numData = [
+      { main: '1', word: 'One' }, { main: '2', word: 'Two' },
+      { main: '3', word: 'Three' }, { main: '4', word: 'Four' },
+      { main: '5', word: 'Five' }, { main: '6', word: 'Six' },
+      { main: '7', word: 'Seven' }, { main: '8', word: 'Eight' },
+      { main: '9', word: 'Nine' }, { main: '10', word: 'Ten' }
+    ];
+
+    function speak(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = 'en-US';
+      speech.rate = 0.8;
+      window.speechSynthesis.speak(speech);
+    }
+
+    function renderCards(data) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => speak(`${item.main} for ${item.word}`);
+        card.innerHTML = `<div class="letter">${item.main}</div><div class="word">${item.word}</div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function showCategory(type) {
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      if (type === 'abc') {
+        btns[0].classList.add('active');
+        renderCards(abcData);
+      } else {
+        btns[1].classList.add('active');
+        renderCards(numData);
+      }
+    }
+
+    // Initial load
+    renderCards(abcData);
+  </script>
+</body>
+</html> <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kids Learning App</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #a8edf0 0%, #fed6e3 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff4757;
+      text-shadow: 2px 2px #ffffff;
+      margin-bottom: 15px;
+      font-size: 2.2rem;
+      text-align: center;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      background-color: #ffffff;
+      color: #2ed573;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background-color: #ff4757;
+      color: #ffffff;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 600px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .card:active {
+      transform: scale(0.95);
+    }
+    .letter {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #3742fa;
+    }
+    .word {
+      font-size: 1rem;
+      color: #2f3542;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎈 Kids Fun Learning App 🎈</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showCategory('abc')">ABC 🔤</button>
+    <button class="tab-btn" onclick="showCategory('123')">123 🔢</button>
+  </div>
+
+  <div id="grid" class="grid-container"></div>
+
+  <script>
+    const abcData = [
+      { main: 'A', word: 'Apple 🍎' }, { main: 'B', word: 'Ball ⚽' },
+      { main: 'C', word: 'Cat 🐱' }, { main: 'D', word: 'Dog 🐶' },
+      { main: 'E', word: 'Elephant 🐘' }, { main: 'F', word: 'Fish 🐟' },
+      { main: 'G', word: 'Grapes 🍇' }, { main: 'H', word: 'House 🏠' },
+      { main: 'I', word: 'Ice Cream 🍦' }, { main: 'J', word: 'Juice 🧃' },
+      { main: 'K', word: 'Kite 🪁' }, { main: 'L', word: 'Lion 🦁' },
+      { main: 'M', word: 'Monkey 🐒' }, { main: 'N', word: 'Nest 🪹' },
+      { main: 'O', word: 'Orange 🍊' }, { main: 'P', word: 'Parrot 🦜' },
+      { main: 'Q', word: 'Queen 👸' }, { main: 'R', word: 'Rabbit 🐇' },
+      { main: 'S', word: 'Sun ☀️' }, { main: 'T', word: 'Tree 🌳' },
+      { main: 'U', word: 'Umbrella ☂️' }, { main: 'V', word: 'Van 🚐' },
+      { main: 'W', word: 'Watch ⌚' }, { main: 'X', word: 'Xylophone 🎼' },
+      { main: 'Y', word: 'Yak 🐂' }, { main: 'Z', word: 'Zebra 🦓' }
+    ];
+
+    const numData = [
+      { main: '1', word: 'One' }, { main: '2', word: 'Two' },
+      { main: '3', word: 'Three' }, { main: '4', word: 'Four' },
+      { main: '5', word: 'Five' }, { main: '6', word: 'Six' },
+      { main: '7', word: 'Seven' }, { main: '8', word: 'Eight' },
+      { main: '9', word: 'Nine' }, { main: '10', word: 'Ten' }
+    ];
+
+    function speak(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = 'en-US';
+      speech.rate = 0.8;
+      window.speechSynthesis.speak(speech);
+    }
+
+    function renderCards(data) {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = '';
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => speak(`${item.main} for ${item.word}`);
+        card.innerHTML = `<div class="letter">${item.main}</div><div class="word">${item.word}</div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function showCategory(type) {
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(b => b.classList.remove('active'));
+      if (type === 'abc') {
+        btns[0].classList.add('active');
+        renderCards(abcData);
+      } else {
+        btns[1].classList.add('active');
+        renderCards(numData);
+      }
+    }
+
+    // Initial load
+    renderCards(abcData);
+  </script>
+</body>
+</html>
